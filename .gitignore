@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.venv/
+build/
+dist/
+
+# leftovers from the GTASnP probes
+gt_*.html
+hdr.txt
+resp.html
+probe*.sav
+gtasnp_probe.sav
