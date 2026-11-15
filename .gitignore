@@ -9,4 +9,8 @@ gt_*.html
 hdr.txt
 resp.html
 probe*.sav
-gtasnp_probe.sav
+
+# other slots of the local profile: `samples/` only keeps the saves the
+# selftest needs, everything else here is a personal playthrough
+samples/*.bak
+samples/*.sav.bak
