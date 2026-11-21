@@ -67,11 +67,36 @@ and double-click it — no installation, no dependencies.
 ## Project status
 
 This is a fan-made, community project and it still has **known limitations
-and bugs**. Coverage of mission and side-mission flags is not complete for
-every playthrough, some custom or modded saves may fail to load, and the
+and bugs**. Some custom or modded saves may fail to load, and the
 achievement preparation is best-effort rather than guaranteed. The editor
 writes into your save file, so **always keep a backup** before pressing
-Save. It is provided as is, without warranty of any kind.
+Save (the app also keeps the first `<file>.sav.bak` it sees). It is
+provided as is, without warranty of any kind.
+
+### Checklist mapping (fixed in this version)
+
+The first release derived each checklist row from whatever variable held a
+matching value in a 100% save, so ticking a mission could write "completed"
+into a radar blip, a pickup index or a help timer and leave the save in a
+state the game refuses to deserialize. The mapping was rebuilt from the
+game's own scripts and is now checked against GTASnP for the sample saves in
+`samples/`:
+
+- all 37 story missions (Vercetti's Shakedown / Bar Brawl / Cop Land are the
+  `FLAG_PROTECT_MISSION*_PASSED` flags), the 7 safe houses and the asset
+  missions use their real flags;
+- collectibles use their counters (packages, rampages, unique jumps) and
+  "Rob All Stores" is the sum of the 15 `ROBBED_*` flags;
+- five rows have no documented variable in the current build (Print Works
+  and Phil's Place "Asset Acquired", Vigilante, RC Bandit Race and RC Baron
+  Race). They are shown greyed out and read-only; the editor never writes
+  them. Their weight is excluded from the displayed progress, and a save
+  whose editable items are all complete is still reported as 100%.
+
+Before saving, the editor diffs the result and aborts (writing nothing) if a
+changed byte falls outside the checklist variables, the percentage float or
+the MD5 seal. It also refuses to open a save whose flags do not read 0/1,
+which catches saves from game builds with a different global layout.
 
 ## Related projects
 
